@@ -113,7 +113,10 @@ def pixel_deletion_test(
         confidences.append(conf)
         step_fractions.append(frac)
 
-    aupc = float(np.trapezoid(confidences, step_fractions))
+    if hasattr(np, "trapezoid"):
+        aupc = float(np.trapezoid(confidences, step_fractions))  # type: ignore
+    else:
+        aupc = float(np.trapz(confidences, step_fractions))  # type: ignore
 
     return {
         "confidences": confidences,
@@ -214,7 +217,10 @@ def pixel_insertion_test(
         confidences.append(conf)
         step_fractions.append(frac)
 
-    aupc = float(np.trapezoid(confidences, step_fractions))
+    if hasattr(np, "trapezoid"):
+        aupc = float(np.trapezoid(confidences, step_fractions))  # type: ignore
+    else:
+        aupc = float(np.trapz(confidences, step_fractions))  # type: ignore
 
     return {
         "confidences": confidences,
