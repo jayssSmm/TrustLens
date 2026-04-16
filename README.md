@@ -183,6 +183,69 @@ Subgroup analysis reveals a 23% accuracy gap between applicant demographics. You
 ### Research
 Use CKA to compare representation quality across model architectures. Use faithfulness testing to benchmark explanation methods honestly.
 
+## Repository Structure
+
+```text
+TrustLens/
+├── assets/
+│   ├── banner.png
+│   └── logo.png
+├── docs/
+│   ├── DESIGN_PRINCIPLES.md
+│   ├── FUTURE_EXTENSIONS.md
+│   ├── GITHUB_ISSUES.md
+│   ├── POSITIONING.md
+│   └── REWRITTEN_ISSUES.md
+├── examples/
+│   ├── calibration_deep_dive.py
+│   ├── cnn_vs_vit_trustlens.py
+│   ├── custom_plugin_demo.py
+│   ├── quickstart.py
+│   └── trustlens_demo.ipynb
+├── .github/workflows/
+│   └── ci.yml
+├── tests/
+│   ├── test_api.py
+│   ├── test_bias.py
+│   ├── test_calibration.py
+│   ├── test_failure.py
+│   ├── test_output_formatting.py
+│   ├── test_plugins.py
+│   ├── test_representation.py
+│   └── test_trust_score.py
+├── trustlens/
+│   ├── explainability/
+│   │   ├── faithfulness.py
+│   │   └── gradcam.py
+│   ├── metrics/
+│   │   ├── bias.py
+│   │   ├── calibration.py
+│   │   ├── failure.py
+│   │   ├── faithfulness.py
+│   │   └── representation.py
+│   ├── plugins/
+│   │   ├── base.py
+│   │   └── registry.py
+│   ├── visualization/
+│   │   ├── bias_plots.py
+│   │   ├── calibration_plots.py
+│   │   ├── failure_plots.py
+│   │   ├── representation_plots.py
+│   │   └── summary_plot.py
+│   ├── api.py
+│   ├── report.py
+│   ├── trust_score.py
+│   └── utils.py
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── Makefile
+├── pyproject.toml
+├── README.md
+├── requirements.txt
+└── ROADMAP.md
+```
+
 ---
 
 ## Contributing
