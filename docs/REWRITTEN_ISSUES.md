@@ -1,69 +1,57 @@
-# TrustLens — 10 Rewritten GitHub Issues (Engagement-Optimized)
-
-> These are rewrites of issues #1, #7, #16, #17, #19, #20, #22, #25, #36, #44 from the original list.
-> Each has been redesigned to maximize contributor engagement.
-
 ---
 
-## Issue #1 (Beginner) — Easy Win, Real Impact
+## 🚀 Published Issues
+> These issues have been moved to the active GitHub tracker.
 
-### Add Maximum Calibration Error (MCE) — the worst-case calibration metric
-
-**Problem:**
-ECE tells you the *average* calibration gap. But what's the *worst bin*?
-
-A model can have excellent ECE but a single catastrophically miscalibrated confidence range.
-MCE (Maximum Calibration Error) catches that. It's used in safety-critical deployments where worst-case matters more than average.
-
+### Issue #1: Add Maximum Calibration Error (MCE) — the worst-case calibration metric
+**Problem:** ECE tells you the average calibration gap. But what's the worst bin?
 **Your task:** Add `maximum_calibration_error(y_true, y_prob, n_bins=10) → float` to `trustlens/metrics/calibration.py`.
-
-**Formula:**
-```
-MCE = max over all bins of |accuracy(bin) - confidence(bin)|
-```
-
-**Expected output:**
-```python
-from trustlens.metrics.calibration import maximum_calibration_error
-mce = maximum_calibration_error(y_true, y_prob)
-# e.g. 0.214 (compared to ECE 0.042 — this reveals a hidden danger zone)
-```
-
-**Tests required:** At least `test_mce_perfect_is_zero` and `test_mce_geq_ece`.
-
-**Why it matters:** Safety-critical ML (medical, financial) cares about worst-case behavior, not averages. This makes TrustLens useful for regulated industries.
-
-**Difficulty:** Beginner · Est. time: 1–2 hours
+**Difficulty:** Beginner
 
 ---
 
-## Issue #7 (Beginner) — Tiny but Elegant
-
-### Add confidence-correctness Spearman correlation to failure analysis
-
-**Problem:**
-The confidence gap tells us the *mean* difference in confidence between correct and incorrect predictions. But what about the *rank correlation*?
-
-A model with high Spearman correlation between confidence and correctness is trustworthy by construction — you can actually use its confidence score to decide when to trust it.
-
+### Issue #7: Add confidence-correctness Spearman correlation to failure analysis
+**Problem:** A model with high Spearman correlation between confidence and correctness is trustworthy by construction.
 **Your task:** Add `confidence_correctness_correlation(y_true, y_pred, y_prob) → dict` to `trustlens/metrics/failure.py`.
+**Difficulty:** Beginner
 
-**Expected output:**
-```python
-result = confidence_correctness_correlation(y_true, y_pred, y_prob)
-# {
-#  "spearman_r": 0.71,
-#  "p_value": 0.000003,
-#  "interpretation": "strong positive: confident predictions are more likely correct"
-# }
-```
+---
 
-**Interpretation guide to implement:**
-- `r > 0.7` → strong
-- `0.4–0.7` → moderate
-- `< 0.4` → weak (model confidence is unreliable)
+### Issue #13: Add `TrustReport.to_dict()` for JSON serialization
+**Problem:** `TrustReport` is difficult to serialize for logging to experiment trackers (MLflow, W&B).
+**Your task:** Implement a `to_dict()` method that returns a JSON-serializable dictionary (NumPy arrays to lists/floats).
+**Difficulty:** Beginner
 
-**Difficulty:** Beginner · Est. time: 2 hours
+---
+
+### Issue #19: Add HTML report export — `report.to_html()` with embedded charts
+**Problem:** Stakeholders need a single-file shareable report — no Python required.
+**Your task:** Create a self-contained `.html` file with embedded base64 PNGs and color-coded metrics.
+**Difficulty:** Intermediate
+
+---
+
+### Issue #20: Add `report.critical_failures()` — ranked table of model mistakes
+**Problem:** Users want a programmatic way to access high-confidence misclassifications.
+**Your task:** Add `critical_failures(n=20) → list[dict]` to `TrustReport`.
+**Difficulty:** Intermediate
+
+---
+
+### Issue #22: Add UMAP/t-SNE embedding visualization — see what your model learned
+**Problem:** A silhouette score can't show class overlaps or ignore clusters visually.
+**Your task:** Add `plot_embedding_2d(embeddings, y_true, method="umap")` to `trustlens/visualization/representation_plots.py`.
+**Difficulty:** Intermediate
+
+---
+
+## Issue #1 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
+
+---
+
+## Issue #7 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
@@ -132,97 +120,18 @@ ece = expected_calibration_error(y_true, y_prob_multiclass)
 
 ---
 
-## Issue #19 (Intermediate) — High DX Impact
-
-### Add HTML report export — `report.to_html()` with embedded charts
-
-**Problem:**
-`report.save()` generates PNGs and JSON. But non-technical stakeholders (product managers, regulators, executives) need a single-file shareable report — no Python, no data science setup.
-
-`report.to_html()` should create a self-contained `.html` file with:
-- Trust Score prominently displayed with traffic-light color coding
-- All 6 summary dashboard panels as embedded base64 PNGs
-- Metric tables with conditional formatting (green/amber/red cells)
-- No external dependencies (single file, works offline)
-
-**Expected output:**
-```python
-report.to_html("model_report.html")
-# Opens in any browser — share with stakeholders directly
-```
-
-**Implementation hint:** Use `matplotlib` to generate PNG bytes → `base64.b64encode` → embed in `<img src="data:image/png;base64,...">`.
-
-**Why it matters:** This is the feature that gets TrustLens into enterprise workflows. A PDF of a model evaluation report. Decision-makers want this.
-
-**Difficulty:** Intermediate · Est. time: 6–8 hours
+## Issue #19 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
-## Issue #20 (Intermediate) — Core UX Feature
-
-### Add `report.critical_failures()` — ranked table of your model's biggest mistakes
-
-**Problem:**
-`show_failures()` prints to console. But users want a *programmatic* way to access critical failures for downstream use — logging, dashboards, alerts.
-
-**Your task:** Add `critical_failures(n=20) → list[dict]` to `TrustReport`.
-
-**Expected output:**
-```python
-failures = report.critical_failures(n=10)
-# [
-#  {
-#   "rank": 1,
-#   "sample_index": 412,
-#   "y_true": 1,
-#   "y_pred": 0,
-#   "confidence": 0.974,
-#   "danger": "CRITICAL",
-#   "features": [0.23, -1.44, 0.87, ...]  # raw feature vector
-#  },
-#  ...
-# ]
-```
-
-**Bonus:** Add `report.export_failures(path="failures.csv")` to save as CSV.
-
-**Why it matters:** Enables automated failure monitoring in CI pipelines. If `critical_failures(n=5)` returns items with `confidence > 0.95`, fail the build.
-
-**Difficulty:** Intermediate · Est. time: 2–3 hours
+## Issue #20 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
-## Issue #22 (Intermediate) — Visual WOW
-
-### Add UMAP/t-SNE embedding visualization — see what your model learned
-
-**Problem:**
-`embedding_separability()` reports a silhouette score. But a *number* can't show you that your class embeddings overlap almost perfectly in one region, or that there's a clear cluster of your minority class that the model completely ignores.
-
-A 2D scatter plot of embeddings, colored by class, tells that story in one glance.
-
-**Your task:** Add `plot_embedding_2d(embeddings, y_true, method="umap")` to `trustlens/visualization/representation_plots.py`.
-
-**Expected output:**
-- 2D scatter plot with per-class color coding
-- Silhouette score annotated in the corner
-- Optional: show centroids as large markers
-
-**Implementation:**
-```python
-# Try UMAP first, fall back to t-SNE
-try:
-  from umap import UMAP
-  proj = UMAP(n_components=2).fit_transform(embeddings)
-except ImportError:
-  from sklearn.manifold import TSNE
-  proj = TSNE(n_components=2).fit_transform(embeddings)
-```
-
-**UMAP is an optional dependency** — add to `setup.cfg[extras_require][full]`.
-
-**Difficulty:** Intermediate · Est. time: 3–5 hours
+## Issue #22 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 

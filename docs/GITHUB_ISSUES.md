@@ -1,16 +1,9 @@
-# TrustLens — First 50 GitHub Issues
-
-> Copy each issue definition below directly into GitHub Issues.
-> Labels: `good first issue` (Beginner), `enhancement` (Intermediate), `research` (Advanced)
-
 ---
 
-## Beginner Issues (1–15)
+## 🚀 Published Issues
+> These issues are currently live on the GitHub tracker.
 
----
-
-### Issue #1
-**Title:** Add Maximum Calibration Error (MCE) metric
+### Issue #1: Add Maximum Calibration Error (MCE) metric
 **Label:** `good first issue`, `metrics`
 **Description:**
 MCE is the maximum (worst-case) calibration gap across all confidence bins.
@@ -21,9 +14,70 @@ Unlike ECE which averages across bins, MCE highlights the single worst miscalibr
 from trustlens.metrics.calibration import maximum_calibration_error
 mce = maximum_calibration_error(y_true, y_prob) # float in [0, 1]
 ```
-
-**Implementation hint:** loop over bins, compute `|accuracy - confidence|`, return `max`.
 **Difficulty:** Beginner
+
+---
+
+### Issue #7: Add `SpearmanCorrelation` between confidence and correctness
+**Label:** `good first issue`, `metrics`
+**Description:**
+Compute Spearman rank correlation between `max_confidence` and `is_correct`.
+Higher correlation → model's confidence better tracks accuracy.
+Add to `failure.py` as `confidence_correctness_correlation(y_true, y_pred, y_prob)`.
+**Difficulty:** Beginner
+
+---
+
+### Issue #13: Add `TrustReport.to_dict()` serialization method
+**Label:** `good first issue`, `api`
+**Description:**
+Add a `to_dict()` method to `TrustReport` that returns all results as a flat Python dictionary (JSON-compatible).
+This enables users to log results to tools like MLflow or W&B.
+**Difficulty:** Beginner
+
+---
+
+### Issue #19: Add HTML report export via `report.to_html()`
+**Label:** `enhancement`, `reporting`
+**Description:**
+Add a `to_html()` method that generates a self-contained HTML report with:
+- Embedded base64 PNG plots
+- Metric tables with color-coded cells (green=good, red=bad)
+- Collapsible sections per module
+**Difficulty:** Intermediate
+
+---
+
+### Issue #20: Add `critical_failures()` method to `TrustReport`
+**Label:** `enhancement`, `api`
+**Description:**
+Add a method that returns the top-N highest-confidence misclassifications across all classes.
+
+```python
+failures = report.critical_failures(n=20)
+# Returns DataFrame: index, y_true, y_pred, confidence
+```
+**Difficulty:** Intermediate
+
+---
+
+### Issue #22: Add UMAP/t-SNE visualization for embeddings
+**Label:** `enhancement`, `visualization`
+**Description:**
+In `trustlens/visualization/representation_plots.py`, add `plot_embedding_2d()`:
+- Compute 2D projection using UMAP (preferred) or t-SNE (fallback)
+- Color points by class label
+- Add legend and silhouette score annotation
+**Difficulty:** Intermediate
+
+---
+
+## Beginner Issues (1–15)
+
+---
+
+### Issue #1 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
@@ -92,15 +146,8 @@ The `bin_counts` computation is approximate. Refactor it to use exact binning lo
 
 ---
 
-### Issue #7
-**Title:** Add `SpearmanCorrelation` between confidence and correctness
-**Label:** `good first issue`, `metrics`
-**Description:**
-Compute Spearman rank correlation between `max_confidence` and `is_correct`.
-Higher correlation → model's confidence better tracks accuracy.
-Add to `failure.py` as `confidence_correctness_correlation(y_true, y_pred, y_prob)`.
-
-**Difficulty:** Beginner
+### Issue #7 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
@@ -169,14 +216,8 @@ Create a runnable example that:
 
 ---
 
-### Issue #13
-**Title:** Add `TrustReport.to_dict()` serialization method
-**Label:** `good first issue`, `api`
-**Description:**
-Add a `to_dict()` method to `TrustReport` that returns all results as a flat Python dictionary (JSON-compatible).
-This enables users to log results to tools like MLflow or W&B.
-
-**Difficulty:** Beginner
+### Issue #13 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
@@ -250,30 +291,13 @@ Add to `trustlens/calibrators/temperature.py`.
 
 ---
 
-### Issue #19
-**Title:** Add HTML report export via `report.to_html()`
-**Label:** `enhancement`, `reporting`
-**Description:**
-Add a `to_html()` method that generates a self-contained HTML report with:
-- Embedded base64 PNG plots
-- Metric tables with color-coded cells (green=good, red=bad)
-- Collapsible sections per module
-
-**Difficulty:** Intermediate
+### Issue #19 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
-### Issue #20
-**Title:** Add `critical_failures()` method to `TrustReport`
-**Label:** `enhancement`, `api`
-**Description:**
-Add a method that returns the top-N highest-confidence misclassifications across all classes.
-
-```python
-failures = report.critical_failures(n=20)
-# Returns DataFrame: index, y_true, y_pred, confidence
-```
-**Difficulty:** Intermediate
+### Issue #20 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
@@ -290,17 +314,8 @@ Implement `IntegratedGradients` in `trustlens/explainability/integrated_gradient
 
 ---
 
-### Issue #22
-**Title:** Add UMAP/t-SNE visualization for embeddings
-**Label:** `enhancement`, `visualization`
-**Description:**
-In `trustlens/visualization/representation_plots.py`, add `plot_embedding_2d()`:
-- Compute 2D projection using UMAP (preferred) or t-SNE (fallback)
-- Color points by class label
-- Add legend and silhouette score annotation
-
-**Optional dependency:** `umap-learn`
-**Difficulty:** Intermediate
+### Issue #22 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 

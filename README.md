@@ -1,3 +1,5 @@
+# TrustLens
+
 <!-- PyPI description start -->
 
 TrustLens is a Python library for analyzing machine learning model reliability beyond accuracy, including calibration, bias, failure analysis, and explainability.
@@ -14,12 +16,13 @@ pip install trustlens
 ```
 <!-- PyPI description end -->
 
-# TrustLens
+## TrustLens
 
 ### Your model has 92% accuracy. But can you trust it?
 
 **TrustLens is the open-source library that answers the questions accuracy never does.**
 
+[![PyPI](https://badge.fury.io/py/trustlens.svg)](https://pypi.org/project/trustlens)
 [![CI](https://github.com/Khanz9664/TrustLens/actions/workflows/ci.yml/badge.svg)](https://github.com/Khanz9664/TrustLens/actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/Khanz9664/TrustLens?style=social)](https://github.com/Khanz9664/TrustLens/stargazers)
