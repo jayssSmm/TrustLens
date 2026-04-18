@@ -72,21 +72,13 @@ In `trustlens/visualization/representation_plots.py`, add `plot_embedding_2d()`:
 
 ---
 
-## Beginner Issues (1–15)
-
----
-
-### Issue #1 [PUBLISHED]
-*This issue has been moved to the active GitHub tracker.*
-
----
-
-### Issue #2
-**Title:** Add accuracy metric to the failure analysis module
+### Issue #2: Add per-class accuracy metric to failure analysis
 **Label:** `good first issue`, `metrics`
 **Description:**
-`misclassification_summary` is detailed. We also want a simple per-class accuracy dictionary.
-Add `per_class_accuracy(y_true, y_pred)` returning `{class: accuracy}`.
+Accuracy is often misleading in imbalanced datasets. We need to complement the `misclassification_summary` with a straightforward dictionary of per-class accuracy values. 
+
+**Task:**
+Implement `per_class_accuracy(y_true, y_pred) -> dict` in `trustlens/metrics/failure.py`.
 
 **Expected output:**
 ```python
@@ -97,17 +89,85 @@ acc = per_class_accuracy(y_true, y_pred)
 
 ---
 
-### Issue #3
-**Title:** Add `conftest.py` with shared pytest fixtures
+### Issue #3: Add shared pytest fixtures via conftest.py
 **Label:** `good first issue`, `testing`
 **Description:**
-Create `tests/conftest.py` with shared fixtures:
-- `binary_dataset` — small NumPy binary classification arrays
-- `multiclass_dataset` — 3-class dataset
-- `trained_rf` — a fitted RandomForestClassifier
+As the test suite grows, we are seeing significant boilerplate duplication in dataset creation. We should centralize common test assets using a root-level `conftest.py`.
 
-This reduces boilerplate across all test files.
+**Task:**
+Create `tests/conftest.py` and implement the following fixtures:
+- `binary_dataset`: A tuple of small NumPy arrays for binary classification.
+- `multiclass_dataset`: A 3-class dataset for verifying the upcoming multi-class support.
+- `trained_rf`: A pre-fitted `RandomForestClassifier` to avoid training time in every test.
+
 **Difficulty:** Beginner
+
+---
+
+### Issue #10: Fix visualization crash for single-class edge case
+**Label:** `bug`, `visualization`
+**Description:**
+The `plot_class_distribution()` function assumes the presence of at least two classes. When provided with a single-class dataset (common in filtered data or specific edge cases), it raises a `ValueError` or crashes during plotting.
+
+**Task:**
+Add a safety guard in `trustlens/visualization/bias_plots.py` to handle 1-item class distributions gracefully. Instead of crashing, it should display a warning message or a simplified bar chart.
+
+**Test case:**
+```python
+# This should no longer crash
+report = class_imbalance_report(np.zeros(50, dtype=int))
+plot_class_distribution(report) 
+```
+**Difficulty:** Beginner
+
+---
+
+### Issue #28: Add tqdm progress bars to analyze()
+**Label:** `enhancement`, `ux`
+**Description:**
+The `analyze()` pipeline can take several seconds when multiple compute-intensive modules (like representation or large-scale calibration) are active. Users currently get no feedback until the entire report is built.
+
+**Task:**
+Integrate `tqdm` into the main `analyze()` loop in `trustlens/api.py`. 
+- The progress bar should only show when `verbose=True`.
+- `tqdm` must remain an **optional dependency**. The code should use a fallback (e.g., logging) if `tqdm` is not installed.
+
+**Difficulty:** Intermediate
+
+---
+
+### Issue #34: Add MLflow integration for logging TrustReport
+**Label:** `enhancement`, `integrations`
+**Description:**
+TrustLens results are often part of a larger experiment tracking workflow. We want to make it seamless to log a `TrustReport` directly to an active MLflow run.
+
+**Task:**
+Add a new integration module `trustlens/integrations/mlflow.py` with a `log_trust_report(report, run=None)` function.
+Properties to log:
+- Scalar metrics (Brier, ECE, individual trust scores) as MLflow metrics.
+- High-level metadata.
+- Plots (summary plot, reliability diagrams) as MLflow artifacts.
+
+**Difficulty:** Intermediate
+
+---
+
+## Beginner Issues (1–15)
+
+---
+
+### Issue #1 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
+
+---
+
+### Issue #2 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
+
+---
+
+### Issue #3 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
@@ -173,19 +233,8 @@ Generate with: `pip-compile setup.cfg --extra dev -o requirements-dev.txt`
 
 ---
 
-### Issue #10
-**Title:** Fix visualization to handle single-class edge case
-**Label:** `good first issue`, `bug`
-**Description:**
-`plot_class_distribution()` crashes when there is only one class in `y_true`.
-Add a guard and display a warning message in the plot.
-
-**Test case:**
-```python
-report = class_imbalance_report(np.zeros(50, dtype=int))
-plot_class_distribution(report) # should not crash
-```
-**Difficulty:** Beginner
+### Issue #10 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
@@ -376,14 +425,8 @@ A model can be well-calibrated overall but systematically miscalibrated for mino
 
 ---
 
-### Issue #28
-**Title:** Add tqdm progress bars to `analyze()`
-**Label:** `enhancement`, `ux`
-**Description:**
-When `verbose=True`, show a `tqdm` progress bar over the list of active modules.
-Make `tqdm` an optional dependency (fall back to `logging.info` if not installed).
-
-**Difficulty:** Intermediate
+### Issue #28 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
@@ -457,15 +500,8 @@ Add `prediction_flip_analysis(model, X, n_perturbations=50, sigma_range=(0.01, 1
 
 ---
 
-### Issue #34
-**Title:** Add MLflow integration for logging TrustReport
-**Label:** `enhancement`, `integrations`
-**Description:**
-Add `trustlens.integrations.mlflow.log_trust_report(report, run=None)`:
-- Logs scalar metrics as MLflow metrics
-- Logs plots as artifacts
-
-**Difficulty:** Intermediate
+### Issue #34 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 

@@ -45,12 +45,63 @@
 
 ---
 
+### Issue #2: Add per-class accuracy metric to failure analysis
+**Problem:** Accuracy is often misleading in imbalanced datasets. We need to complement the `misclassification_summary` with a straightforward dictionary of per-class accuracy values. 
+**Your task:** Implement `per_class_accuracy(y_true, y_pred) -> dict` in `trustlens/metrics/failure.py`.
+**Difficulty:** Beginner
+
+---
+
+### Issue #3: Add shared pytest fixtures via conftest.py
+**Problem:** As the test suite grows, we are seeing significant boilerplate duplication in dataset creation. We should centralize common test assets using a root-level `conftest.py`.
+**Your task:** Create `tests/conftest.py` with shared fixtures: `binary_dataset`, `multiclass_dataset`, and `trained_rf`.
+**Difficulty:** Beginner
+
+---
+
+### Issue #10: Fix visualization crash for single-class edge case
+**Problem:** The `plot_class_distribution()` function assumes the presence of at least two classes. When provided with a single-class dataset, it raises a `ValueError` or crashes during plotting.
+**Your task:** Add a safety guard in `trustlens/visualization/bias_plots.py` to handle 1-item class distributions gracefully.
+**Difficulty:** Beginner
+
+---
+
+### Issue #28: Add tqdm progress bars to analyze() — silence is the enemy of UX
+**Problem:** `analyze()` is the heart of TrustLens. When modules like `representation` or `bias` run on large datasets, the terminal hangs without feedback.
+**Your task:** Add `tqdm` progress tracking to the module execution loop in `trustlens/api.py`.
+**Technical constraint:** `tqdm` must be an optional dependency (fallback to standard logging).
+**Difficulty:** Intermediate
+
+---
+
+### Issue #34: Add MLflow integration for logging TrustReport — connect to the MLOps ecosystem
+**Problem:** Most teams use MLflow to track experiments. Manually extracting metrics from a `TrustReport` and logging them individually is tedious and error-prone.
+**Your task:** Implement `trustlens.integrations.mlflow.log_trust_report(report)` to log scalar scores and plot artifacts.
+**Difficulty:** Intermediate
+
+---
+
 ## Issue #1 [PUBLISHED]
 *This issue has been moved to the active GitHub tracker.*
 
 ---
 
 ## Issue #7 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
+
+---
+
+## Issue #2 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
+
+---
+
+## Issue #3 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
+
+---
+
+## Issue #10 [PUBLISHED]
 *This issue has been moved to the active GitHub tracker.*
 
 ---
@@ -131,6 +182,16 @@ ece = expected_calibration_error(y_true, y_prob_multiclass)
 ---
 
 ## Issue #22 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
+
+---
+
+## Issue #28 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
+
+---
+
+## Issue #34 [PUBLISHED]
 *This issue has been moved to the active GitHub tracker.*
 
 ---
