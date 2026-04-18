@@ -1,11 +1,8 @@
 <div align="center">
-
   <img src="assets/banner1.png" alt="TrustLens Banner" width="100%" />
-
 <br/>
 
-
-⭐ If you find this useful, consider starring the repo  
+⭐ If you find this useful, consider starring the repo
 🛠 Open issues available for contributors
 
 # TrustLens
