@@ -1,5 +1,3 @@
----
-
 ## 🚀 Published Issues
 > These issues have been moved to the active GitHub tracker.
 

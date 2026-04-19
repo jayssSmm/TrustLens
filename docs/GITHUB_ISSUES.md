@@ -1,5 +1,3 @@
----
-
 ## 🚀 Published Issues
 > These issues are currently live on the GitHub tracker.
 

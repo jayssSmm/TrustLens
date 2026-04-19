@@ -28,7 +28,7 @@ A dashboard brings TrustLens into stakeholder review meetings.
 
 ## 2. Public Leaderboard
 
-**Concept:** A community benchmark platform at `trustlens.dev/leaderboard`.
+**Concept:** A community benchmark platform at `trustlens domain/leaderboard`.
 
 Users submit `report.json` outputs for standard datasets (CIFAR-10, ImageNet, GLUE, etc.).
 The leaderboard ranks models not by accuracy — but by calibration, fairness, and explainability faithfulness.
