@@ -179,6 +179,7 @@ def analyze(
     # 3. Calibration module
     # ------------------------------------------------------------------
     if "calibration" in active_modules:
+        print("Running calibration analysis...")
         if hasattr(pbar, "set_postfix"):
             pbar.set_postfix(module="calibration")
         _log("Running calibration analysis …")
@@ -199,6 +200,7 @@ def analyze(
     # 4. Failure analysis module
     # ------------------------------------------------------------------
     if "failure" in active_modules:
+        print("Runnign failure analysis...")
         if hasattr(pbar, "set_postfix"):
             pbar.set_postfix(module="failure")
         _log("Running failure analysis …")
@@ -211,6 +213,7 @@ def analyze(
     # 5. Bias detection module
     # ------------------------------------------------------------------
     if "bias" in active_modules:
+        print("Running bias analysis...")
         if hasattr(pbar, "set_postfix"):
             pbar.set_postfix(module="bias")
         _log("Running bias detection …")
@@ -226,6 +229,7 @@ def analyze(
     # 6. Representation analysis module
     # ------------------------------------------------------------------
     if "representation" in active_modules and embeddings is not None:
+        print("Runnign representation analysis...")
         if hasattr(pbar, "set_postfix"):
             pbar.set_postfix(module="representation")
         _log("Running representation analysis …")
