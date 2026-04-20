@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Improved
+- Added progress messages in `analyze()` for better runtime visibility
+
 ### Added
 - `report.save()` now supports direct export to single `.json` and `.txt` files.
 - Human-readable text report generation without ANSI colors.

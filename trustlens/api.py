@@ -182,7 +182,6 @@ def analyze(
         print("Running calibration analysis...")
         if hasattr(pbar, "set_postfix"):
             pbar.set_postfix(module="calibration")
-        _log("Running calibration analysis …")
         # For binary classification use positive-class probabilities.
         # For multi-class, compute one-vs-rest brier score (macro average).
         if y_prob.ndim == 2 and y_prob.shape[1] == 2:
@@ -200,10 +199,9 @@ def analyze(
     # 4. Failure analysis module
     # ------------------------------------------------------------------
     if "failure" in active_modules:
-        print("Runnign failure analysis...")
+        print("Running failure analysis...")
         if hasattr(pbar, "set_postfix"):
             pbar.set_postfix(module="failure")
-        _log("Running failure analysis …")
         results["failure"] = {
             "misclassification_summary": misclassification_summary(y_true, y_pred, y_prob),
             "confidence_gap": confidence_gap(y_true, y_pred, y_prob),
@@ -216,7 +214,6 @@ def analyze(
         print("Running bias analysis...")
         if hasattr(pbar, "set_postfix"):
             pbar.set_postfix(module="bias")
-        _log("Running bias detection …")
         results["bias"] = {
             "class_imbalance": class_imbalance_report(y_true),
         }
@@ -229,10 +226,9 @@ def analyze(
     # 6. Representation analysis module
     # ------------------------------------------------------------------
     if "representation" in active_modules and embeddings is not None:
-        print("Runnign representation analysis...")
+        print("Running representation analysis...")
         if hasattr(pbar, "set_postfix"):
             pbar.set_postfix(module="representation")
-        _log("Running representation analysis …")
         results["representation"] = {
             "separability": embedding_separability(embeddings, y_true),
         }
