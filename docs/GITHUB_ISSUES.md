@@ -195,7 +195,34 @@ Implement `trustlens analyze` with support for built-in datasets and local files
 
 ---
 
-## Beginner Issues (1–15)
+### Issue #0: Add clearer error message for invalid input shapes
+**Title:** Add clearer error message for invalid input shapes (great first PR)
+**Label:** `good first issue`, `beginner-friendly`
+**Problem**
+When users pass incorrect input shapes (for example mismatched `y_true` and `y_prob`), the error messages are not always clear.
+This can make debugging difficult, especially for beginners.
+We should provide clear and helpful error messages.
+Improve error messages for invalid inputs.
+
+---
+
+### Issue #5
+**Title:** Improve docstring for `analyze()` with a full code example
+**Label:** `good first issue`, `docs`
+**Description:**
+The `analyze()` docstring has a brief example.
+Expand the `Examples` section with a 10-line runnable code snippet using `make_classification`.
+
+**Difficulty:** Beginner
+
+---
+
+## Beginner Issues (0–15)
+
+---
+
+### Issue #0 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
@@ -226,14 +253,8 @@ Add `tests/test_version.py` that asserts:
 
 ---
 
-### Issue #5
-**Title:** Improve docstring for `analyze()` with a full code example
-**Label:** `good first issue`, `docs`
-**Description:**
-The `analyze()` docstring has a brief example.
-Expand the `Examples` section with a 10-line runnable code snippet using `make_classification`.
-
-**Difficulty:** Beginner
+### Issue #5 [PUBLISHED]
+*This issue has been moved to the active GitHub tracker.*
 
 ---
 
