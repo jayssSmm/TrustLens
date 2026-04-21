@@ -1,5 +1,59 @@
 # Contributing to TrustLens
 
+## 🚀 First Contribution (Start Here)
+
+We love welcoming new contributors! Whether you're a seasoned engineer or just starting out, there's a place for you here. We have many small "quick-win" tasks that take only 10–20 minutes to complete.
+
+Look for issues labeled:
+- `beginner`
+- `good first issue`
+- `hacktoberfest`
+
+### Quick Start in 5 Steps:
+
+1. **Fork** the repository to your own GitHub account.
+2. **Clone** your fork locally: `git clone https://github.com/<YOUR_USERNAME>/trustlens.git`.
+3. **Create a branch** for your changes: `git checkout -b my-new-feature`.
+4. **Make your changes** (even small ones like fixing a typo are great!).
+5. **Open a Pull Request (PR)**
+Don’t worry if something feels unclear - just open a PR and we’ll help you refine it 👍
+
+---
+
+## 🎯 Choose Your Contribution Level
+
+Pick a path that matches your interest and experience:
+
+🟢 **Beginner**:
+- Fix typos or improve documentation.
+- Add logging to existing functions.
+- Improve error messages for better clarity.
+
+🟡 **Intermediate**:
+- Enhance CLI arguments or outputs.
+- Integrate with new ML frameworks or logging tools.
+- Implement a standard metric from our roadmap.
+
+🔵 **Advanced**:
+- Implement new XAI algorithms (e.g., specific Grad-CAM variants).
+- Add complex representation metrics.
+- Optimize performance for large-scale datasets.
+
+---
+
+## 🤝 New Contributors Welcome
+
+👉 Want to get started right now? Check out open issues labeled `good first issue`.
+Browse issues here: https://github.com/Khanz9664/TrustLens/issues
+
+We are committed to making TrustLens a friendly and supportive community:
+- **We actively support first-time contributors**: Don't worry if you're new to Git or Open Source.
+- **You won’t break anything**: All changes are reviewed, and our automated tests will catch any issues.
+- **Maintainers will guide you**: If you're stuck, just ask in your PR or an issue.
+- **Fast PR reviews**: We aim to review all contributions within 48 hours.
+
+---
+
 Thank you for your interest in TrustLens!
 We welcome contributions from researchers, engineers, and data scientists of all skill levels.
 
@@ -24,7 +78,10 @@ We welcome contributions from researchers, engineers, and data scientists of all
 
 ## 1. Development Setup
 
+This is only needed if you're making code changes. For small doc fixes, you can edit directly on GitHub.
+
 ### Prerequisites
+
 - Python 3.9 or higher
 - Git
 
@@ -273,6 +330,14 @@ pytest --cov=trustlens     # run with coverage
 ```
 
 ---
+
+## ⚡ Quick PR Checklist
+
+Before submitting your PR, please ensure:
+- **Code runs**: The logic works as expected.
+- **Tests pass**: All existing and new tests pass locally.
+- **Clear commit message**: Use meaningful titles.
+- **Linked issue**: Mention the issue your PR addresses.
 
 ## 8. Pull Request Guidelines
 
