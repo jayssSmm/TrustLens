@@ -173,14 +173,28 @@ trustlens/
 
 ---
 
-## Contributors
+## 🌟 Contributors
 
-Thanks goes to these wonderful people:
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/Khanz9664">
+        <img src="https://github.com/Khanz9664.png" width="100px;" style="border-radius:50%;"/>
+        <br />
+        <sub><b>Khanz9664</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jayssSmm">
+        <img src="https://github.com/jayssSmm.png" width="100px;" style="border-radius:50%;"/>
+        <br />
+        <sub><b>jayssSmm</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
 
-<!-- ALL-CONTRIBUTORS-LIST:START -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.
+Want to see your name here? Check out `good first issue` 👇
 
 ---
 
