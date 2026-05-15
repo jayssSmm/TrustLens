@@ -1,13 +1,44 @@
 # TrustLens Roadmap
 
-> Last updated: April 2026
+> Last updated: May 2026
 > This roadmap reflects our current priorities. Community feedback shapes every phase.
+
+---
+
+## Current State (v0.3.0)
+
+- ✅ Stable ML evaluation pipeline (calibration, failure, bias, representation)
+- ✅ Head-to-head model comparison API (`trustlens.compare`)
+- ✅ Decision-ready Trust Score with penalty reasoning
+- ✅ Multi-feature fairness and 2D embedding diagnostics
+- ✅ Professional contributor infrastructure and documentation
+
+---
+
+## Status Legend
+
+- [x] Completed (production-ready)
+- [~] In progress / Experimental (limited availability)
+- [ ] Planned
+
+---
+
+## Active Work (v0.3.x)
+
+These are high-priority items currently being developed or targeted for the next release.
+
+- [ ] **Policy Profiles** (Issue #56) — *Context-aware scoring (Strict/Lenient)*
+- [ ] **TrustComparison** (Issue #57) — *Differential reliability audits*
+- [ ] **XGBoost Support** — *Native prediction resolver for XGBClassifier*
+- [~] **Deep Learning Backends** — *Experimental Keras & TensorFlow integration*
+- [~] **HTML Report Export** (Issue #19) — *[OPEN]*
+- [ ] **Maximum Calibration Error (MCE)** (Issue #1)
 
 ---
 
 ## Phase 1: MVP — *The Foundation*
 
-**Target: v0.1.2**
+**Status: COMPLETE**
 
 The minimal set of features required to be genuinely useful to practitioners.
 
@@ -18,79 +49,69 @@ The minimal set of features required to be genuinely useful to practitioners.
 - [x] **Failure Analysis**: misclassification summary, confidence gap histogram
 - [x] **Bias Detection**: class imbalance report, subgroup accuracy/F1
 - [x] **Representation Analysis**: silhouette separability, CKA metric
-- [x] **Explainability**: Grad-CAM with PyTorch support
-- [x] **Faithfulness**: pixel deletion + insertion tests (AUPC)
+- [~] **Explainability**: Grad-CAM with PyTorch support — *[EXPERIMENTAL]*
+- [~] **Faithfulness**: pixel deletion + insertion tests (AUPC) — *[EXPERIMENTAL]*
 - [x] Plugin system (BasePlugin + PluginRegistry)
-- [x] Full test suite (>80% coverage)
-- [x] Professional README (with logo), CONTRIBUTING, quickstart examples
+- [x] Full test suite (>230 tests)
+- [x] Professional README, CONTRIBUTING, quickstart examples
 - [x] PyPI package & GitHub Actions CI (lint/test/format)
 
 ---
 
 ## Phase 2: Core Expansion — *Going Deeper*
 
-**Target: v0.2.0**
+**Target: v0.3.x (ongoing)**
 
-Expanding each module with the next most-requested features.
+> **Focus:** High-impact ML features that integrate directly into the `analyze()` pipeline.
 
-### Calibration
-- [ ] Maximum Calibration Error (MCE)
-- [ ] Temperature Scaling calibrator (with `calibrate()` function)
-- [ ] Overconfidence/underconfidence statistics
-- [ ] Multi-class ECE (label-wise decomposition)
+### High Priority
+- [x] **Equalized Odds** (Issue #25)
+- [x] **UMAP/t-SNE Visualization** (Issue #22)
+- [x] **Jupyter Rich Display** (`_repr_html_`) (Issue #24)
+- [x] **Progress Bars** via `tqdm` (Issue #28)
+- [x] **Subgroup ECE** (calibration per demographic group)
+- [~] **HTML Report Export** (Issue #19) — [OPEN]
+- [ ] **Temperature Scaling** (Issue #18)
+- [ ] **Maximum Calibration Error (MCE)** (Issue #1)
 
-### Failure Analysis
-- [ ] Per-class PR curves and optimal threshold analysis
-- [ ] `TrustReport.critical_failures()` — top-N highest-confidence mistakes
-- [ ] Prediction flip analysis (how much perturbation changes prediction)
+### Nice to Have
+- [ ] **Multi-class ECE** (label-wise decomposition)
+- [ ] **Critical Failures** table for `TrustReport`
+- [ ] **Per-class PR curves** and optimal threshold analysis
+- [ ] **Prediction Flip Analysis** (robustness check)
+- [ ] **Eigen-CAM** (gradient-free explainability)
+- [ ] **Integrated Gradients (IG)** for tabular models
+- [ ] **SHAP Wrapper** (optional dependency)
+- [ ] **Text-based Sensitive Feature Parsing**
+- [ ] **Linear Probing** accuracy per layer
+- [ ] **Intrinsic Dimensionality** estimation for embeddings
 
-### Bias Detection
-- [ ] Equalized odds and demographic parity metrics
-- [ ] Text-based sensitive feature parsing
-- [ ] Subgroup ECE (calibration per group)
-
-### Representation Analysis
-- [ ] UMAP/t-SNE visualization of embeddings per class
-- [ ] Intrinsic dimensionality estimation
-- [ ] Linear probing accuracy per embedding layer
-
-### Explainability
-- [ ] Eigen-CAM (gradient-free, faster inference)
-- [ ] Integrated Gradients (IG) for tabular models
-- [ ] SHAP wrapper integration (optional dependency)
-
-### UX
-- [x] Progress bars via `tqdm`
-- [/] HTML report export (`report.save()` includes assets; standalone `to_html` pending)
-- [x] Jupyter notebook display (rich `_repr_html_`)
+### Framework Support
+- [ ] **XGBoost Integration** — Native `analyze()` support for `XGBClassifier`
+- [~] **Keras Experimental** — Sequential and functional model support
+- [~] **TensorFlow Experimental** — SavedModel loading and lazy import hygiene
 
 ---
 
-## Phase 3: Research Features — *Frontier Methods*
+## Phase 3: Comparative & Research — *Frontier Methods*
 
-**Target: v0.3.0**
+**Target: v0.3.x / v0.4.0**
 
-Methods primarily of interest to ML researchers pushing state-of-the-art.
+Methods primarily of interest to ML researchers pushing state-of-the-art and production diffing.
 
-### Vision Transformers (ViTs)
-- [ ] Generic attention rollout for ViT models
-- [ ] DINO-compatible self-attention map visualization
-- [ ] ViT Grad-CAM via register_hook on attention weights
-
-### NLP & Sequence Models
-- [ ] Attention-based saliency for BERT-style models
-- [ ] Token-level faithfulness via masking tests
-- [ ] Semantic similarity–based explanation consistency
+### Comparative Audits
+- [x] **Model recommendation engine** (`trustlens.compare`)
+- [x] **Score comparison tables**
+- [ ] **Policy-aware deltas** (Issue #57)
 
 ### Advanced Representation
-- [ ] Representation fragility score (adversarial perturbation in embedding space)
-- [ ] Neuron activation statistics per class
 - [ ] Layer-wise CKA heatmap (n_layers × n_layers)
+- [ ] Neuron activation statistics per class
+- [ ] Representation fragility score (adversarial perturbation)
 
 ### Benchmarking
 - [ ] `benchmark()` function — run TrustLens on standard datasets (CIFAR-10, etc.)
 - [ ] Baseline scores for common architectures
-- [ ] Score comparison tables
 
 ---
 
@@ -100,21 +121,18 @@ Methods primarily of interest to ML researchers pushing state-of-the-art.
 
 Making TrustLens a community standard.
 
-### Contribution Infrastructure
-- [ ] Contributor hall of fame in README
+### Contribution & Documentation
+- [x] Contributor hall of fame in README
+- [x] Video walkthrough series
+- [x] Interactive Jupyter notebooks (Colab-ready)
 - [ ] Plugin submission process (community plugin registry)
 - [ ] `trustlens-contrib` companion repository
 
 ### Integrations
-- [ ] **Hugging Face**: `evaluate`-compatible metric modules
 - [ ] **MLflow**: log TrustLens metrics as experiment artifacts
 - [ ] **Weights & Biases**: log reliability diagrams as charts
+- [ ] **Hugging Face**: `evaluate`-compatible metric modules
 - [ ] **DVC**: TrustLens report as a DVC stage output
-
-### Documentation
-- [ ] Full Read the Docs site with API reference
-- [ ] Interactive Jupyter notebooks (Binder/Colab)
-- [ ] Video walkthrough series
 
 ---
 
@@ -128,11 +146,6 @@ TrustLens as a complete model analysis platform.
 - [ ] Zero-config web UI (`trustlens serve`) using FastAPI + React
 - [ ] Interactive reliability diagrams (Plotly)
 - [ ] Model comparison views
-
-### Leaderboard
-- [ ] Public leaderboard for model calibration benchmarks
-- [ ] Dataset-specific calibration baselines
-- [ ] Community-submitted benchmark results
 
 ### Enterprise Features
 - [ ] Scheduled monitoring reports (model drift detection)

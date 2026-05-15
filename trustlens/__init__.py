@@ -7,16 +7,14 @@ trustworthiness of machine learning models beyond standard metrics.
 Core capabilities include:
 - Calibration analysis (Brier Score, ECE, reliability diagrams)
 - Failure analysis (misclassifications, confidence gaps)
-- Explainability (Grad-CAM, Eigen-CAM)
-- Faithfulness testing (pixel deletion/insertion)
 - Bias detection (subgroup performance, class imbalance)
 - Representation analysis (embedding geometry, CKA)
 - Trust Score (0–100 composite reliability metric)
 """
 
-__version__ = "0.1.2"
-
+from ._version import __version__
 from .api import analyze, quick_analyze
+from .comparison import compare
 from .report import TrustReport
 from .trust_score import TrustScoreResult, compute_trust_score
 
@@ -27,4 +25,5 @@ __all__ = [
     "compute_trust_score",
     "TrustScoreResult",
     "__version__",
+    "compare",
 ]

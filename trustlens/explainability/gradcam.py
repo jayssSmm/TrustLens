@@ -1,3 +1,7 @@
+# NOTE:
+# This module is under active development and is not part of the public API.
+# Do not import into production pipelines until stabilized.
+
 """
 trustlens.explainability.gradcam.
 =================================
@@ -143,12 +147,12 @@ class GradCAM:
             mode="bilinear",
             align_corners=False,
         )
-        cam = cam.squeeze().detach().cpu().numpy()
-        cam -= cam.min()
-        if cam.max() > 0:
-            cam /= cam.max()
+        heatmap = cam.squeeze().detach().cpu().numpy()
+        heatmap -= heatmap.min()
+        if heatmap.max() > 0:
+            heatmap /= heatmap.max()
 
-        return cast(np.ndarray, cam.astype(np.float32))
+        return cast(np.ndarray, heatmap.astype(np.float32))
 
     # ------------------------------------------------------------------
     # Overlay utility
@@ -182,9 +186,6 @@ class GradCAM:
         -------
         matplotlib.figure.Figure
         """
-        import matplotlib
-
-        matplotlib.use("Agg")
         import matplotlib.cm as cm
         import matplotlib.pyplot as plt
 
