@@ -34,6 +34,8 @@ def plot_class_distribution(
     -------
     matplotlib.figure.Figure
     """
+    if len(imbalance_data["class_counts"]) == 1:
+        return "Single class detected, Aborting"
     plt.style.use("seaborn-v0_8-whitegrid")
     PALETTE = [
         "#4B8BF5",
