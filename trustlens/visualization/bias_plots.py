@@ -75,7 +75,6 @@ def plot_class_distribution(
 
         plt.close(fig)
         return fig
-    
     plt.style.use("seaborn-v0_8-whitegrid")
     PALETTE = [
         "#4B8BF5",
