@@ -7,6 +7,7 @@ Unit tests for trustlens.metrics.bias.
 import numpy as np
 import pytest
 
+from trustlens.visualization.bias_plots import plot_class_distribution
 from trustlens.metrics.bias import class_imbalance_report, equalized_odds, subgroup_performance
 
 
@@ -255,10 +256,6 @@ class TestEqualizedOdds:
                 np.array([1, 0, 1, 0]),
                 {},
             )
-
-from trustlens.visualization.bias_plots import plot_class_distribution
-from trustlens.metrics.bias import class_imbalance_report
-
 
 class TestBiasPlots:
     def test_single_class_distribution_plot(self):
