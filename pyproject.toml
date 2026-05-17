@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "trustlens"
 dynamic = ["version"]
-description = "Analyze machine learning model reliability beyond accuracy."
+description = "Audit ML models beyond accuracy — calibration, fairness, latent health, and deployment verdicts."
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.9"
 license = "MIT"
@@ -18,7 +18,7 @@ keywords = [
     "model evaluation",
     "model reliability",
     "calibration",
-    "explainability",
+    "model trust",
     "fairness",
     "bias detection"
 ]
@@ -52,11 +52,15 @@ LinkedIn = "https://www.linkedin.com/in/shahid-ul-islam-13650998/"
 Instagram = "https://instagram.com/shaddy9664"
 
 [project.optional-dependencies]
+xgboost = [
+    "xgboost>=1.7",
+]
 torch = [
     "torch>=2.0",
     "torchvision>=0.15",
 ]
 full = [
+    "xgboost>=1.7",
     "torch>=2.0",
     "torchvision>=0.15",
     "shap>=0.42",
@@ -68,19 +72,23 @@ dev = [
     "ruff>=0.4",
     "mypy>=1.0",
     "pre-commit>=3.0",
+    "build>=1.0",
+    "twine>=5.0",
+    "pip-audit>=2.7",
+    "pytest-xdist>=3.0",
 ]
 docs = [
     "sphinx>=6.0",
-    "sphinx-rtd-theme>=1.2",
+    "furo>=2024.1.1",
     "myst-parser>=2.0",
     "nbsphinx>=0.9",
 ]
 
 [tool.setuptools.packages.find]
-exclude = ["tests*", "docs*", "examples*"]
+exclude = ["tests*","scratch*", "docs*", "examples*"]
 
 [tool.setuptools.dynamic]
-version = { attr = "trustlens.__version__" }
+version = { attr = "trustlens._version.__version__" }
 
 [tool.pytest.ini_options]
 minversion = "7.0"
@@ -106,6 +114,7 @@ omit = [
 [tool.coverage.report]
 show_missing = true
 skip_covered = false
+fail_under = 73
 
 [tool.ruff]
 line-length = 100
@@ -149,7 +158,8 @@ ignore = [
 convention = "numpy"
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.10"  # Mypy 1.19+ dropped 3.9 (EOL). Project maintains 3.10 runtime support.
 warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true
+follow_imports = "silent"

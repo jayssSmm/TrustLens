@@ -9,7 +9,7 @@ Every plugin must subclass ``BasePlugin`` and implement ``run()``.
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Optional
 
 import numpy as np
 
@@ -28,7 +28,7 @@ class BasePlugin(ABC):
     description : str
       Human-readable description displayed in the plugin registry listing.
     version : str
-      Plugin version string. Default ``"0.1.2"``.
+      Plugin version string. Default ``"0.3.0"``.
 
     Examples
     --------
@@ -42,7 +42,7 @@ class BasePlugin(ABC):
 
     name: str = ""
     description: str = ""
-    version: str = "0.1.2"
+    version: str = "0.3.0"
 
     # ------------------------------------------------------------------
     # Abstract interface
@@ -55,7 +55,7 @@ class BasePlugin(ABC):
         X: np.ndarray,
         y_true: np.ndarray,
         y_pred: np.ndarray,
-        y_prob: np.ndarray,
+        y_prob: Optional[np.ndarray],
         **kwargs: Any,
     ) -> dict[str, Any]:
         """

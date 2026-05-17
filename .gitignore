@@ -56,6 +56,15 @@ trust_report/
 !docs/assets/*.png
 !assets/*.png
 
+# Local demo outputs
+demo_output_*/
+demo_output_*
+demo_plots_*
+trustlens_demo_output/
+scratch/
+
+
+
 # OS
 .DS_Store
 Thumbs.db
@@ -64,3 +73,8 @@ Thumbs.db
 .env
 .env.local
 secrets/
+.dev/
+
+.agents/
+graphify-out/
+graphify.md

@@ -1,64 +1,98 @@
 # Contributing to TrustLens
 
-## 🚀 First Contribution (Start Here)
+## First Contribution Guide
 
-We love welcoming new contributors! Whether you're a seasoned engineer or just starting out, there's a place for you here. We have many small "quick-win" tasks that take only 10–20 minutes to complete.
+Welcome! We're excited to have you here. This guide will help you get started with your first contribution in minutes.
 
-Look for issues labeled:
-- `beginner`
-- `good first issue`
-- `hacktoberfest`
+### 1. Find an Issue
+Browse our [open issues](https://github.com/Khanz9664/TrustLens/issues). Look for the `good first issue` label for beginner-friendly tasks.
 
-### Quick Start in 5 Steps:
+### 2. Set Up Your Environment
+Run these commands to set up your local development environment:
 
-1. **Fork** the repository to your own GitHub account.
-2. **Clone** your fork locally: `git clone https://github.com/<YOUR_USERNAME>/trustlens.git`.
-3. **Create a branch** for your changes: `git checkout -b my-new-feature`.
-4. **Make your changes** (even small ones like fixing a typo are great!).
-5. **Open a Pull Request (PR)**
-Don’t worry if something feels unclear - just open a PR and we’ll help you refine it 👍
+```bash
+# Fork the repo on GitHub, then clone your fork:
+git clone https://github.com/YOUR_USERNAME/TrustLens.git
+cd TrustLens
 
----
+# Set up a virtual environment:
+python -m venv .venv
+source .venv/bin/activate  # Linux/macOS
+# .venv\Scripts\activate  # Windows
 
-## 🎯 Choose Your Contribution Level
+# Install in editable mode with dev dependencies:
+pip install -e ".[dev]"
 
-Pick a path that matches your interest and experience:
+# Install pre-commit hooks:
+pre-commit install
+```
 
-🟢 **Beginner**:
-- Fix typos or improve documentation.
-- Add logging to existing functions.
-- Improve error messages for better clarity.
+### 3. Create a Branch
+Always create a new branch for your work:
 
-🟡 **Intermediate**:
-- Enhance CLI arguments or outputs.
-- Integrate with new ML frameworks or logging tools.
-- Implement a standard metric from our roadmap.
+```bash
+git checkout -b feat/my-new-feature
+```
 
-🔵 **Advanced**:
-- Implement new XAI algorithms (e.g., specific Grad-CAM variants).
-- Add complex representation metrics.
-- Optimize performance for large-scale datasets.
+### 4. Make Changes & Verify
+After making your changes, verify everything works:
 
----
+```bash
+# Run the test suite:
+make test
 
-## 🤝 New Contributors Welcome
+# Run linting and formatting:
+pre-commit run --all-files
+```
 
-👉 Want to get started right now? Check out open issues labeled `good first issue`.
-Browse issues here: https://github.com/Khanz9664/TrustLens/issues
-
-We are committed to making TrustLens a friendly and supportive community:
-- **We actively support first-time contributors**: Don't worry if you're new to Git or Open Source.
-- **You won’t break anything**: All changes are reviewed, and our automated tests will catch any issues.
-- **Maintainers will guide you**: If you're stuck, just ask in your PR or an issue.
-- **Fast PR reviews**: We aim to review all contributions within 48 hours.
+### 5. Open a Pull Request
+Push your branch and open a PR on GitHub. Don't worry about being perfect—we're here to help!
 
 ---
 
-Thank you for your interest in TrustLens!
-We welcome contributions from researchers, engineers, and data scientists of all skill levels.
+## How to Pick an Issue
 
-> **First time contributing to open source?**
-> Check out [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/) — we're beginner-friendly!
+We use labels to help you find the right task for your experience level:
+
+- 🟢 **Beginner**: Small fixes (typos, docs, simple logging). Label: `good first issue`.
+- 🟡 **Intermediate**: New metrics, CLI improvements, integrations. Label: `intermediate`.
+- 🔵 **Advanced**: Core algorithm changes, performance optimization. Label: `advanced`.
+
+---
+
+## Need Help?
+
+If you get stuck or have questions:
+- **Comment on the issue**: We'll respond as soon as we can.
+- **Join Discussions**: Ask general questions in our [GitHub Discussions](https://github.com/Khanz9664/TrustLens/discussions).
+- **Draft PR**: Open a Draft PR if you want early feedback on your code.
+
+---
+
+## Quick PR Checklist
+
+Before submitting your PR, ensure:
+- [ ] Tests pass (`make test`)
+- [ ] Pre-commit hooks pass (`pre-commit run --all-files`)
+- [ ] `CHANGELOG.md` is updated
+- [ ] Linked issue is mentioned (e.g., `Fixes #123`)
+
+---
+
+## Experimental Features
+
+Some modules (e.g., `explainability/`) are under active development and are **not part of the stable API**. Before working on or importing these modules, please read the guidelines:
+
+→ [**docs/EXPERIMENTAL.md**](docs/EXPERIMENTAL.md) — rules, promotion criteria, and what "experimental" means.
+
+Roadmaps for **XGBoost**, **Keras**, and **TensorFlow** integrations live in [section 10](#10-framework-integration-plans).
+
+---
+
+## Code of Conduct
+
+As a contributor, you are expected to respect and follow our code of conduct to ensure a welcoming environment for everyone.
+→ [**CODE_OF_CONDUCT.md**](CODE_OF_CONDUCT.md)
 
 ---
 
@@ -66,19 +100,21 @@ We welcome contributions from researchers, engineers, and data scientists of all
 
 1. [Development Setup](#development-setup)
 2. [Project Structure](#project-structure)
-3. [Adding a New Metric](#adding-a-new-metric)
-4. [Adding a New Visualization](#adding-a-new-visualization)
-5. [Writing a Plugin](#writing-a-plugin)
-6. [Coding Standards](#coding-standards)
-7. [Writing Tests](#writing-tests)
-8. [Pull Request Guidelines](#pull-request-guidelines)
-9. [Reporting Issues](#reporting-issues)
+3. [Adding a New Backend](#adding-a-new-backend)
+4. [Adding a New Metric](#adding-a-new-metric)
+5. [Adding a New Visualization](#adding-a-new-visualization)
+6. [Writing a Plugin](#writing-a-plugin)
+7. [Coding Standards](#coding-standards)
+8. [Writing Tests](#writing-tests)
+9. [Pull Request Guidelines](#pull-request-guidelines)
+10. [Reporting Issues](#reporting-issues)
+11. [Framework integration plans](#11-framework-integration-plans)
 
 ---
 
 ## 1. Development Setup
 
-This is only needed if you're making code changes. For small doc fixes, you can edit directly on GitHub.
+This is only needed if you're making code changes. For small documentation fixes, you can edit directly on GitHub.
 
 ### Prerequisites
 
@@ -124,34 +160,81 @@ python -c "from trustlens import analyze; print(' TrustLens ready')"
 
 ---
 
-## 2. Project Structure
+---
+
+## 3. Project Structure
 
 ```
 trustlens/
  api.py          ← analyze() entry point
- report.py         ← TrustReport result container
- utils.py         ← shared helpers
- metrics/
-  calibration.py    ← Brier Score, ECE, reliability curve
-  failure.py      ← misclassification, confidence gap
-  bias.py        ← imbalance, subgroup performance
-  representation.py  ← silhouette, CKA
- explainability/
-  gradcam.py      ← Grad-CAM (PyTorch)
-  faithfulness.py   ← pixel deletion/insertion tests
- visualization/
-  calibration_plots.py
-  failure_plots.py
-  bias_plots.py
-  representation_plots.py
- plugins/
-   base.py        ← BasePlugin ABC
-   registry.py     ← PluginRegistry singleton
+ report.py       ← TrustReport result container
+ backends/       ← Framework Resolvers [NEW]
+   registry.py   ← Framework detection & dispatch
+   sklearn.py    ← Scikit-learn resolver
+   xgboost.py    ← XGBoost resolver
+ core/
+   pipeline.py   ← Framework-agnostic execution engine
+ metrics/        ← Agnostic diagnostic modules
+ visualization/  ← Agnostic plotting modules
+ plugins/        ← User-defined extensions
 ```
 
 ---
 
-## 3. Adding a New Metric
+## 4. Adding a New Backend
+
+TrustLens is framework-agnostic. To add support for a new library (e.g., CatBoost or PyTorch), follow these steps.
+
+### Step 1 — Create the backend file
+Create `trustlens/backends/myframework.py`.
+
+### Step 2 — Implement the `resolve()` function
+Your resolver must accept a model and features, and return a `PredictionBundle`. It is responsible for framework-specific prediction logic and normalization.
+
+```python
+# trustlens/backends/myframework.py
+from trustlens.backends.types import PredictionBundle
+
+def resolve(model, X, y_pred=None, y_prob=None):
+    # 1. Resolve probabilities (framework-specific)
+    if y_prob is None:
+        y_prob = model.predict_proba(X)
+
+    # 2. Normalize probabilities (Contract: always (n, classes))
+    # For binary, convert (n,) -> (n, 2)
+
+    # 3. Resolve class predictions
+    if y_pred is None:
+        y_pred = model.predict(X)
+
+    # 4. Return the standard bundle
+    return PredictionBundle(
+        y_pred=y_pred,
+        y_prob=y_prob,
+        framework="myframework",
+        metadata={
+            "resolver": "myframework",
+            "framework_version": "1.2.3"
+        }
+    )
+```
+
+### Step 3 — Register the framework
+Update `trustlens/backends/registry.py`:
+
+1. Add your framework to `FRAMEWORK_MAPPING` for auto-detection.
+2. Add your framework name to `IMPLEMENTED_RESOLVERS`.
+3. Update `get_resolver()` to return your `resolve` function.
+
+### Step 4 — Add integration tests
+Create `tests/test_backend_myframework.py`. Ensure it covers:
+- Automatic framework detection.
+- Prediction resolution (shapes and types).
+- Gating/blocking unsupported tasks (e.g., regression).
+
+---
+
+## 5. Adding a New Metric
 
 Here is the step-by-step workflow for adding a new metric.
 
@@ -243,7 +326,7 @@ Add a docstring entry to `docs/api_reference.rst` and mention it in the changelo
 
 ---
 
-## 4. Adding a New Visualization
+## 6. Adding a New Visualization
 
 Visualization functions go in `trustlens/visualization/`.
 
@@ -268,7 +351,7 @@ dispatch["mycategory"] = _plot_mycategory
 
 ---
 
-## 5. Writing a Plugin
+## 7. Writing a Plugin
 
 Full plugin authoring guide: see `trustlens/plugins/__init__.py`.
 
@@ -296,7 +379,7 @@ report = analyze(model, X, y, plugins=["my_metric"])
 
 ---
 
-## 6. Coding Standards
+## 8. Coding Standards
 
 - **Python 3.9+** — use type hints, `from __future__ import annotations`
 - **Ruff** for linting (config in `pyproject.toml`)
@@ -315,7 +398,7 @@ mypy trustlens/
 
 ---
 
-## 7. Writing Tests
+## 9. Writing Tests
 
 - Place tests in `tests/` mirroring the source structure
 - Use `pytest` fixtures for shared setup
@@ -329,17 +412,23 @@ pytest -k "calibration"    # run matching tests
 pytest --cov=trustlens     # run with coverage
 ```
 
+### Framework-Specific Tests
+Some tests require optional dependencies. To run them locally, install the corresponding extra and use the pytest markers:
+
+```bash
+# Install the extra (example: xgboost)
+pip install -e ".[xgboost]"
+
+# Run only XGBoost tests
+pytest -m requires_xgboost
+
+# Run only TensorFlow tests
+pytest -m requires_tensorflow
+```
+
 ---
 
-## ⚡ Quick PR Checklist
-
-Before submitting your PR, please ensure:
-- **Code runs**: The logic works as expected.
-- **Tests pass**: All existing and new tests pass locally.
-- **Clear commit message**: Use meaningful titles.
-- **Linked issue**: Mention the issue your PR addresses.
-
-## 8. Pull Request Guidelines
+## 10. Pull Request Guidelines
 
 1. **One PR per feature/fix** — keep changes focused
 2. **Branch naming**: `feature/my-feature`, `fix/bug-description`, `docs/update-readme`
@@ -353,7 +442,7 @@ Before submitting your PR, please ensure:
 
 ---
 
-## 9. Reporting Issues
+## 11. Reporting Issues
 
 Found a bug? Have a feature request?
 
@@ -363,6 +452,18 @@ Open an issue with:
 - **Expected vs. actual behaviour**
 
 We aim to respond within 48 hours. ⏱
+
+---
+
+## 12. Framework integration plans
+
+Use these when picking up or reviewing large integrations (optional backends, shared prediction resolver, CI). Each plan is **scoped to one library**:
+
+| Plan | Scope |
+|------|--------|
+| [docs/plans/IMPLEMENTATION_PLAN_XGBoost.md](docs/plans/IMPLEMENTATION_PLAN_XGBoost.md) | **XGBoost [INTEGRATED]** — Native support added in v0.4.0. See `docs/internal/prediction_contract.md` for current backend standards. |
+| [docs/plans/IMPLEMENTATION_PLAN_Keras.md](docs/plans/IMPLEMENTATION_PLAN_Keras.md) | **Keras** — `model.predict` semantics, shapes, `analyze_keras`, experimental API (see plan for `keras` vs `tf.keras` scope). |
+| [docs/plans/IMPLEMENTATION_PLAN_TensorFlow.md](docs/plans/IMPLEMENTATION_PLAN_TensorFlow.md) | **TensorFlow** — optional `tensorflow` extra, lazy imports, CI, SavedModel/runtime notes; cross-links Keras plan for Keras API details. |
 
 ---
 
